@@ -1,0 +1,76 @@
+#########
+* Word Count Tracker
+* Sean Reilly
+* 1/14/2022
+#########
+
+Description
+    A simple terminal app written in python to help the user keep track of
+    the number of words  they write, allowing them to create entries in
+    a PostgreSQL database containing a word count, a date, and optionally a
+    project title associated with the entry 
+    (Ex. Entry #: 1038  | Wordcount: 130  | Date: 2002-01-01  | 
+     Project Title: Example)
+    The user can then delete these entries or print them to the terminal screen
+    in the above format. 
+
+Usage: 
+    This program requires a PostgreSQL server with the word_count_entry table. 
+    This table can be found in the word_count_schema file. 
+    
+    Once created, the program requires an INI file titled "database.ini" to
+    connect to this database. It must be in the same directory as the rest
+    of the program, have a section called [postgresql_conn_data], and 
+    have enough information to establish a connection to a PostgreSQL 
+    database (At a minimum, the name of the database. Host and port will 
+    default to localhost and 5432 respectively)
+    Example contents of such an INI file:
+        [postgresql_conn_data]
+        host=localhost
+        port=5432
+        dbname=postgres
+        user=example
+        password=example1
+
+    With a server and an INI file to connect to it, the program can then be run
+    with "python3 main.py". It will continue accepting input until "quit" is 
+    entered
+
+    The list of commands, with [] indicating an optional part of a command. 
+    Anything in () should not be entered directly, but is instead a description
+    of what sorts of values should be entered or what the command does:        
+          
+        help (prints this list of commands)
+        
+        add (positive integer representing word count) 
+            [(date in ISO format)] [(string representing the
+                                     title of a project)]
+
+        delete (integer representing id of project, id's can be found 
+                with the print command)
+        delete dates (first date in range entries will be deleted in)
+                     (second date in range entries will be deleted in)
+        delete project (name of project whose entries will be deleted)
+
+        print all
+        print dates (first date in range entries will be printed in) 
+                    (second date in range entries will be printed in)
+        print project (name of project whose entries will be printed)
+        
+        quit
+
+Goals:
+    I wanted to create a simple program that would involve connecting to
+    and querying a relational database. 
+
+Things to Add:
+    1. Slightly more complex queries 
+    (Exs: Avg number of words written per week & month)
+
+    2. Being able to process a pdf or plain text file and automatically create
+    a corresponding entry
+       
+
+Acknowledgements:
+    The article "Connect to PostgreSQL Database Server Using Python Module 
+    of psycopg2" by Audhi Aprilliant for help with parsing INI files
